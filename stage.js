@@ -8,7 +8,19 @@ class Stage extends createjs.Stage {
 		if (!Stage.tickerInitialised){
 			Stage.initTicker();
 		}	
-	  
+		
+		this.leftShown = false;
+		this.rightShown = false;
+		
+		this.leftArrow = new createjs.Bitmap($("#_arrow").get(0));
+		this.addChild(this.leftArrow);
+		this.leftArrow.scaleX = this.leftArrow.scaleY = 0.1;
+		this.leftArrow.regX = this.leftArrow.regY = 490;
+		this.leftArrow.rotation = -90;
+		this.leftArrow.y = this.height*0.5;
+		//this.leftArrow.x = this.width*0.05;
+		this.leftArrow.x = -this.width*0.1;
+		
 		createjs.Ticker.addEventListener("tick",this); //Turns on the ticker. use event.delta to get time in seconds. Use in tick() func of any child
 		console.log(this.height+", "+this.width);
 	}		
@@ -21,9 +33,30 @@ class Stage extends createjs.Stage {
 	}	
 	
 	handleEvent(evt){
-		//console.log(evt);	
+		//console.log(evt);
+		//console.log(this.mouseX+","+this.mouseY);	
 		super.handleEvent(evt);
 		
+		if (evt.time > 1500){
+			if(!this.leftShown && this.mouseX < this.width*0.1){
+				this.showLeft();
+			}
+			else if (this.leftShown && this.mouseX >= this.width*0.1){
+				this.hideLeft();
+			}	
+		}
+	}	
+	
+	showLeft(){
+		createjs.Tween.get(this.leftArrow,{override:true}).to({x: this.width*0.05},1000,createjs.Ease.quadInOut);
+		this.leftShown = true;
+		console.log("Show left");	
+	}	
+	
+	hideLeft(){
+		createjs.Tween.get(this.leftArrow,{override:true}).to({x: -this.width*0.1},1000,createjs.Ease.quadInOut);
+		this.leftShown = false;
+		console.log("Hide left");
 	}	
 	
 	addChild(c){

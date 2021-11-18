@@ -49,7 +49,7 @@ $(()=> {
 		
 		let st = new Stage("mainCan");
 		
-		let tF = new Floater();
+		/*let tF = new Floater();
 		st.addChild(tF);
 		tF.x = st.width*0.5;
 		tF.y = st.height*0.5;
@@ -59,10 +59,39 @@ $(()=> {
 		st.addChild(tF1);
 		tF1.x = st.width*0.7;
 		tF1.y = st.height*0.8;
-		tF1.initialiseAnims();
+		tF1.initialiseAnims();*/
+		
+		putFloaters(5,st);
+		
+		let me = new createjs.Bitmap($("#_reu_body").get(0));
+		me.regX = 600;
+		me.x = st.width*0.5;
+		me.y = st.height*0.15;
+		me.scaleX=me.scaleY = 0.5;
+		
+		let colm = new createjs.Bitmap($("#_column").get(0));
+		st.addChild(colm);
+		colm.regX = 250;
+		colm.x = me.x;
+		colm.y = me.y+st.height*0.46;
+		colm.scaleX = colm.scaleY = 0.8;
+		
+		st.addChild(me);
+		
 	}		
 	
 });
 
-
+function putFloaters(n,st){
+	for (let i=0; i<n; i++){
+		let r = Math.random()+0.5; //random from 0.5 to 1.5
+		let tmp = new Floater(0.15*r);
+		st.addChild(tmp);
+		tmp.x = st.width*Math.random();
+		tmp.y = st.height*Math.random();
+		tmp.initialiseAnims();
+	
+	}
+	
+}
 
