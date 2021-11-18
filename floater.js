@@ -67,16 +67,18 @@ class Floater extends createjs.Container {
 		console.log("Anim timescale :"+tScale);
 		this.rotation = -8;
 		
-		createjs.Tween.get(this,{loop:-1,bounce:true,timeScale:tScale}).to({rotation:8},2000,createjs.Ease.quadInOut);
+		let ran = Math.random();
+		
+		createjs.Tween.get(this,{loop:-1,bounce:true,timeScale:tScale}).to({rotation:8},2000,createjs.Ease.quadInOut).setPosition(ran*2000);
 		
 		this._tail. rotation = 20;
-		createjs.Tween.get(this._tail,{loop:-1,bounce:true,timeScale:tScale}).to({rotation:-20},2000,createjs.Ease.cubicInOut);
+		createjs.Tween.get(this._tail,{loop:-1,bounce:true,timeScale:tScale}).to({rotation:-20},2000,createjs.Ease.cubicInOut).setPosition(ran*2000);
 		
 		this._wing_r. rotation = 20;
-		createjs.Tween.get(this._wing_r,{loop:-1,bounce:true,timeScale:tScale}).to({rotation:-20},1000,createjs.Ease.circIn);
+		createjs.Tween.get(this._wing_r,{loop:-1,bounce:true,timeScale:tScale}).to({rotation:-20},1000,createjs.Ease.circIn).setPosition(ran*1000);
 		
 		this._wing_l. rotation = -20;
-		createjs.Tween.get(this._wing_l,{loop:-1,bounce:true,timeScale:tScale}).to({rotation:20},1000,createjs.Ease.circIn);
+		createjs.Tween.get(this._wing_l,{loop:-1,bounce:true,timeScale:tScale}).to({rotation:20},1000,createjs.Ease.circIn).setPosition(ran*1000);
 	}	
 	
 	get speed(){
@@ -93,6 +95,7 @@ class Floater extends createjs.Container {
 		
 		if (this.y < -Floater.leeWay && this._parent != null){
 			this.y = this._parent.height + Floater.leeWay;
+			//this.x = this._parent.width*Math.random();
 		}	
 		
 	}
